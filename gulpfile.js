@@ -37,12 +37,16 @@ var config = {
   },
   css: {
     src: 'stylus',
+    infile: 'main',
     dest: 'css',
+    outfile: 'main',
     ext: 'styl'
   },
   js: {
     src: 'js',
+    infile: 'main',
     dest: 'js',
+    outfile: 'app',
     ext: 'js'
   },
   images: {
@@ -61,7 +65,7 @@ var config = {
 
 var paths = {
   styles: {
-    src: path.join(config.root.src, config.css.src, 'main.' + config.css.ext),
+    src: path.join(config.root.src, config.css.src, config.css.infile + '.' + config.css.ext),
     dir: path.join(config.root.src, config.css.src, '/**/*.' + config.css.ext),
     dest: path.join(config.root.dest, config.css.dest)
   },
@@ -121,7 +125,6 @@ gulp.task('fonts', () => {
 gulp.task('styles', () => {
   return gulp.plumbedSrc(paths.styles.src)
     .pipe(!config.production ? sourcemaps.init() : util.noop())
-    // .pipe(stylus({use: [axis(), rupture(), pmixins()]}))
     .pipe(stylus({use: [axis(), rupture()]}))
     .pipe(postcss([
       lost(),
@@ -129,7 +132,7 @@ gulp.task('styles', () => {
     ]))
     .pipe(!config.production ? sourcemaps.write() : util.noop())
     .pipe(config.production ? cleancss() : util.noop())
-    .pipe(rename('main.css'))
+    .pipe(rename(config.css.outfile + '.css'))
     .pipe(gulp.dest(paths.styles.dest))
     .pipe(notify({ title: 'Styles', message: 'Styles task complete' }))
     .pipe(browserSync.stream());
@@ -140,14 +143,14 @@ gulp.task('jshint', () => {
   return gulp.src(paths.scripts.src, {since: gulp.lastRun('jshint')})
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'))
-    // .pipe(jshint.reporter('fail'))
+    // .pipe(jshint.reporter('fail')) // Un-comment to fail on errors and warnings
     .pipe(notify({ title: 'JSHint', message: 'JSHint Passed' }));
 });
 
 // Concatenate and minify JavaScript
 gulp.task('js:concat', () => {
   return gulp.plumbedSrc(paths.scripts.src)
-    .pipe(concat('app.js'))
+    .pipe(concat(config.js.outfile + '.js'))
     .pipe(config.production ? uglify() : util.noop())
     .pipe(gulp.dest(paths.scripts.dest))
     .pipe(notify({ title: 'Scripts', message: 'Scripts task complete' }));
@@ -157,11 +160,11 @@ gulp.task('js:concat', () => {
 
 // Browserify bundler
 var bundler = browserify({
-    entries: [path.join(config.root.src, config.js.src, '/main.' + config.js.ext)],
+    entries: [path.join(config.root.src, config.js.src, config.js.infile + '.' + config.js.ext)],
     debug: !config.production,
     cache: {},
     packageCache: {},
-    // fullPaths: true // for watchify
+    // fullPaths: true // for watchify - unecessary?
 });
 
 // Add transformations here
@@ -176,7 +179,7 @@ gulp.task('js', function() {
     .pipe(!config.production ? sourcemaps.init({loadMaps: true}) : util.noop()) // loads map from browserify file
     .pipe(!config.production ? sourcemaps.write('./') : util.noop()) // writes .map file
     .pipe(config.production ? uglify() : util.noop())
-    .pipe(rename('app.js'))
+    .pipe(rename(config.js.outfile + '.js'))
     .pipe(gulp.dest(paths.scripts.dest))
     .pipe(notify({ title: 'Scripts', message: 'Scripts task complete' }));
 });
@@ -193,7 +196,7 @@ gulp.task('watchify', () => {
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
       .pipe(sourcemaps.write('./')) // writes .map file
-      .pipe(rename('app.js'))
+      .pipe(rename(config.js.outfile + '.js'))
       .pipe(gulp.dest(paths.scripts.dest))
       .pipe(notify({ title: 'Scripts', message: 'Scripts task complete' }));
   }
