@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This attempts to be a universal gulpfile.js, so many options are set in variables near the beginning of the file. The default asset pipeline uses Stylus for CSS preprocessing, axis and rupture for helpful mixins, and lost for the grid. JavaScript is linted and then bundled using Browserify and minified (if using --production). The default task then watches all of these files for changes, and starts BrowserSync which automatically recompiles and reloads your browser whenever changes are made.
+This attempts to be a universal gulpfile.js, so many options are set in variables near the beginning of the file. The default asset pipeline uses [Gulp](http://gulpjs.com/) (obviously), [Stylus](http://stylus-lang.com/) for CSS preprocessing, [axis](http://axis.netlify.com/) and [rupture](http://jescalan.github.io/rupture/) for helpful mixins, and [lost](https://github.com/peterramsing/lost) for the grid. JavaScript is linted and then bundled using [Browserify](http://browserify.org/) and minified (if using --production). The default task then watches all of these files for changes, and starts [BrowserSync](https://www.browsersync.io/) which automatically recompiles and reloads your browser whenever changes are made.
 
 The default file structure is:
 
@@ -18,7 +18,7 @@ The default file structure is:
 
 ## Getting started
 
-First, you will need node (and npm) installed. If you are unsure how to do this for your system, follow the instructions at https://nodejs.org/en/.
+First, you will need node (and npm) installed. If you are unsure how to do this for your system, follow the instructions at the [official Node site](https://nodejs.org/en/).
 
 Next, you will need to install gulp globally. Gulp is a javascript "streaming build system" which handles most of the assets for this project. We are using the newest version of Gulp (4), which is not officially released, so it must be installed like so:
 
