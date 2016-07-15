@@ -4,6 +4,8 @@
   "scripts": {
     "start": "npm run start-server & npm run gulp",
     "start-server": "python -m SimpleHTTPServer 8000",
+    "build-dev": "gulp build",
+    "build-prod": "gulp build --production",
     "gulp": "gulp"
   },
   "devDependencies": {
@@ -36,7 +38,5 @@
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
   },
-  "dependencies": {
-    "jquery": "^3.0.0"
-  }
+  "dependencies": {}
 }

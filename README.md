@@ -30,15 +30,17 @@ This installs the gulp cli globally. Then, to install all of the local dev depen
 
 from the project directory (this directory).
 
-After that, you should just be able to run `gulp` and a browser window will pop up. It will most likely be empty, since you haven't set up a local server for the site, but that is fine for now.
+To start up a basic static server and run gulp, a few npm scripts are here to help:
+
+    npm start
 
 To just build the site without running BrowserSync, run:
 
-    gulp build
+    npm run build-dev
 
 which will include sourcemaps for Stylus and JavaScript. If you want to output the non-sourcemapped, minified assets, run:
 
-    gulp build --production
+    npm run build-prod
 
 Also, as a note, each time gulp is run, it deletes the `public` folder, so it is recommended to not store any important files within.
 
@@ -49,5 +51,3 @@ The gulpfile.js tries to be as flexible as possible (i.e. not very), by using va
 The one variable you will most likely want to change will be the `devurl`. This tells BrowserSync what to proxy when running. If you set up a server on `localhost:8000`, for example, put that into the `devurl` variable.
 
 The `index.html` file is provided simply as an example for pulling in the built assets, but this project can be a starting point for WordPress themes or a one-page app.
-
-Feel free to remove jQuery if you so desire, it is just a quick example of how to use npm packages with Browserify.
