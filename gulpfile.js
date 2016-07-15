@@ -19,9 +19,10 @@ var gulp          = require('gulp'),
     buffer        = require('vinyl-buffer'),
     watchify      = require('watchify'),
     browserify    = require('browserify'),
+    // coffeeify     = require('coffeeify'),
+    babelify      = require('babelify'),
     axis          = require('axis'),
     rupture       = require('rupture'),
-    // pmixins       = require('pauls-mixins'),
     autoprefixer  = require('autoprefixer'),
     lost          = require('lost'),
     del           = require('del'),
@@ -60,7 +61,7 @@ var config = {
     ext: 'eot,svg,ttf,woff,woff2'
   },
   production: !!util.env.production,
-  devurl: 'http://localhost'
+  devurl: 'http://localhost:8000'
 };
 
 var paths = {
@@ -128,7 +129,7 @@ gulp.task('styles', () => {
     .pipe(stylus({use: [axis(), rupture()]}))
     .pipe(postcss([
       lost(),
-      autoprefixer({ browsers: ['last 2 versions', '> 5%']})
+      autoprefixer({ browsers: ['last 2 versions']})
     ]))
     .pipe(!config.production ? sourcemaps.write() : util.noop())
     .pipe(config.production ? cleancss() : util.noop())
@@ -143,7 +144,8 @@ gulp.task('jshint', () => {
   return gulp.src(paths.scripts.src, {since: gulp.lastRun('jshint')})
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'))
-    // .pipe(jshint.reporter('fail')) // Un-comment to fail on errors and warnings
+    // Un-comment to fail on errors and warnings
+    // .pipe(jshint.reporter('fail'))
     .pipe(notify({ title: 'JSHint', message: 'JSHint Passed' }));
 });
 
@@ -164,11 +166,13 @@ var bundler = browserify({
     debug: !config.production,
     cache: {},
     packageCache: {},
-    // fullPaths: true // for watchify - unecessary?
+    // for watchify - unecessary?
+    // fullPaths: true
 });
 
 // Add transformations here
 // bundler.transform(coffeeify);
+bundler.transform(babelify);
 
 // Build JavaScript using Browserify
 gulp.task('js', function() {
@@ -176,8 +180,10 @@ gulp.task('js', function() {
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(buffer())
-    .pipe(!config.production ? sourcemaps.init({loadMaps: true}) : util.noop()) // loads map from browserify file
-    .pipe(!config.production ? sourcemaps.write('./') : util.noop()) // writes .map file
+    // loads map from browserify file
+    .pipe(!config.production ? sourcemaps.init({loadMaps: true}) : util.noop())
+    // writes .map file
+    .pipe(!config.production ? sourcemaps.write('./') : util.noop())
     .pipe(config.production ? uglify() : util.noop())
     .pipe(rename(config.js.outfile + '.js'))
     .pipe(gulp.dest(paths.scripts.dest))
@@ -194,8 +200,10 @@ gulp.task('watchify', () => {
     return watcher.bundle()
       .pipe(source('bundle.js'))
       .pipe(buffer())
-      .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-      .pipe(sourcemaps.write('./')) // writes .map file
+      // loads map from browserify file
+      .pipe(sourcemaps.init({loadMaps: true}))
+      // writes .map file
+      .pipe(sourcemaps.write('./'))
       .pipe(rename(config.js.outfile + '.js'))
       .pipe(gulp.dest(paths.scripts.dest))
       .pipe(notify({ title: 'Scripts', message: 'Scripts task complete' }));

@@ -1,3 +1,4 @@
-var $ = require('jquery');
+import ExampleClass from "./ExampleClass";
 
-$('h1').text('Hello, jQuery!');
+let e = new ExampleClass();
+e.sayHello();
