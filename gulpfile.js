@@ -61,7 +61,7 @@ var config = {
     ext: 'eot,svg,ttf,woff,woff2'
   },
   production: !!util.env.production,
-  devurl: 'http://localhost:8000'
+  devurl: 'http://localhost:8080'
 };
 
 var paths = {

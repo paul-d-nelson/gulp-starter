@@ -25,7 +25,13 @@ Next, you will need to install Gulp globally. Gulp is a JavaScript "streaming bu
 
     npm install gulpjs/gulp-cli -g
 
-This installs the Gulp CLI globally. Then, to install all of the local dev dependencies:
+This installs the Gulp CLI globally.
+
+This also uses a basic HTTP server for development, which needs to be installed using this command:
+
+    npm install http-server -g
+
+Then, to install all of the local dev dependencies:
 
     npm install
 
