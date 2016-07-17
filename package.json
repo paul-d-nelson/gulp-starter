@@ -2,8 +2,7 @@
   "name": "gulp-starter",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrent --raw --kill-others \"npm run start-server\" \"npm run gulp\"",
-    "start-server": "http-server ./",
+    "start": "npm run gulp",
     "build-dev": "gulp build",
     "build-prod": "gulp build --production",
     "gulp": "gulp"
@@ -16,7 +15,6 @@
     "browser-sync": "^2.12.5",
     "browserify": "^13.0.1",
     "coffeeify": "^2.0.1",
-    "concurrently": "^2.2.0",
     "del": "^2.2.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-clean-css": "^2.0.10",

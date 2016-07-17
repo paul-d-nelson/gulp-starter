@@ -230,7 +230,9 @@ gulp.task('watch', () => {
 // Run BrowserSync through local server
 gulp.task('serve', () => {
   browserSync.init({
-    proxy: config.devurl
+    server: {
+      baseDir: './'
+    }
   });
   gulp.watch(paths.styles.dir, gulp.series('styles'));
   gulp.watch(paths.scripts.src, gulp.series('jshint', 'watchify')).on('change', reload);

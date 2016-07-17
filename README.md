@@ -27,19 +27,19 @@ Next, you will need to install Gulp globally. Gulp is a JavaScript "streaming bu
 
 This installs the Gulp CLI globally.
 
-This also uses a basic HTTP server for development, which needs to be installed using this command:
-
-    npm install http-server -g
-
 Then, to install all of the local dev dependencies:
 
     npm install
 
 from the project directory (this directory).
 
-To start up a basic static server and run Gulp, an npm script is here to help:
+To build the project and start up a static local server:
 
     npm start
+
+or
+
+    gulp
 
 To just build the site without running BrowserSync, run:
 

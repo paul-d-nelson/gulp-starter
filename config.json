@@ -1,0 +1,32 @@
+{
+  "root": {
+    "src": "./src",
+    "dest": "./public"
+  },
+  "css": {
+    "src": "stylus",
+    "infile": "main",
+    "dest": "css",
+    "outfile": "main",
+    "ext": "styl"
+  },
+  "js": {
+    "src": "js",
+    "infile": "main",
+    "dest": "js",
+    "outfile": "app",
+    "ext": "js"
+  },
+  "images": {
+    "src": "img",
+    "dest": "img",
+    "ext": "jpg,png,svg,gif"
+  },
+  "fonts": {
+    "src": "fonts",
+    "dest": "fonts",
+    "ext": "eot,svg,ttf,woff,woff2"
+  },
+  "production": "!!util.env.production",
+  "devurl": "http://localhost:8080"
+}
