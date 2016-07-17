@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npm run gulp",
-    "build-dev": "gulp build",
-    "build-prod": "gulp build --production",
+    "build:dev": "gulp build",
+    "build:prod": "gulp build --production",
     "gulp": "gulp"
   },
   "devDependencies": {

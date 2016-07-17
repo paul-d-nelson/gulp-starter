@@ -43,11 +43,11 @@ or
 
 To just build the site without running BrowserSync, run:
 
-    npm run build-dev
+    npm run build:dev
 
 which will include sourcemaps for Stylus and JavaScript. If you want to output the non-sourcemapped, minified assets, run:
 
-    npm run build-prod
+    npm run build:prod
 
 Also, as a note, each time gulp is run, it deletes the `public` folder, so it is recommended to not store any important files within. Everything should be in the `src` folder or the root directory.
 
