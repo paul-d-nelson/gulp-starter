@@ -21,9 +21,9 @@ The default file structure is:
 
 First, you will need node (and npm) installed. If you are unsure how to do this for your system, follow the instructions at the [official Node site](https://nodejs.org/en/).
 
-Next, you will need to install Gulp globally. Gulp is a JavaScript "streaming build system" which handles most of the assets for this project. We are using the newest version of Gulp (4), which is not officially released, so it must be installed like so:
+Next, you will need to install Gulp globally. Gulp is a JavaScript "streaming build system" which handles most of the assets for this project. We are using the newest version of Gulp (4), so it must be installed like so:
 
-    npm install gulpjs/gulp-cli -g
+    npm install gulp-cli -g
 
 This installs the Gulp CLI globally.
 
